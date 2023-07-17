@@ -1,8 +1,7 @@
 package com.example.challenge.service;
 
 import com.example.challenge.entity.People;
-import com.example.challenge.response.CountryDescResponse;
-import com.example.challenge.rto.CountryDesc;
+import com.example.challenge.response.CountryAscResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,5 +11,5 @@ public interface PeopleService {
 
     Page<People> getAllPeople(Pageable pageable);
 
-    List<CountryDescResponse> getAllCountryDesc();
+    List<CountryAscResponse> getAllCountryAsc();
 }

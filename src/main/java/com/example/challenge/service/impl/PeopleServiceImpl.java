@@ -2,9 +2,9 @@ package com.example.challenge.service.impl;
 
 import com.example.challenge.entity.People;
 import com.example.challenge.repository.PeopleRepository;
-import com.example.challenge.response.CountryDescResponse;
-import com.example.challenge.rto.CountryDesc;
-import com.example.challenge.rto.CountryDescToDto;
+import com.example.challenge.response.CountryAscResponse;
+import com.example.challenge.rto.CountryAsc;
+import com.example.challenge.rto.CountryAscToDto;
 import com.example.challenge.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class PeopleServiceImpl implements PeopleService {
     private PeopleRepository peopleRepository;
 
     @Autowired
-    private CountryDescToDto countryDescToDto;
+    private CountryAscToDto countryDescToDto;
 
     @Override
     public Page<People> getAllPeople(Pageable pageable) {
@@ -34,12 +34,12 @@ public class PeopleServiceImpl implements PeopleService {
 //    }
 
     @Override
-    public List<CountryDescResponse> getAllCountryDesc() {
-        List<CountryDesc> listCountryDesc = peopleRepository.getCountryDesc();
-        List<CountryDescResponse> listResponse = new ArrayList<>();
-        for (CountryDesc countryDesc: listCountryDesc) {
-            CountryDescResponse countryDescResponse = countryDescToDto.toDto(countryDesc);
-            listResponse.add(countryDescResponse);
+    public List<CountryAscResponse> getAllCountryAsc() {
+        List<CountryAsc> listCountryAsc = peopleRepository.getCountryAsc();
+        List<CountryAscResponse> listResponse = new ArrayList<>();
+        for (CountryAsc countryAsc: listCountryAsc) {
+            CountryAscResponse countryAscResponse = countryDescToDto.toDto(countryAsc);
+            listResponse.add(countryAscResponse);
         }
         return listResponse;
     }

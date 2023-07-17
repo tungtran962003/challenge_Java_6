@@ -1,6 +1,6 @@
 package com.example.challenge.rto;
 
-public interface CountryDesc {
+public interface CountryAsc {
 
     String getCountry();
 

@@ -1,7 +1,7 @@
 package com.example.challenge.controller;
 
 import com.example.challenge.entity.People;
-import com.example.challenge.response.CountryDescResponse;
+import com.example.challenge.response.CountryAscResponse;
 import com.example.challenge.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,7 +36,7 @@ public class ExController {
 
     @GetMapping("/5")
     public ResponseEntity<?> getAllCountryDesc() {
-        List<CountryDescResponse> list = peopleService.getAllCountryDesc();
+        List<CountryAscResponse> list = peopleService.getAllCountryAsc();
         return ResponseEntity.ok(list);
     }
 }

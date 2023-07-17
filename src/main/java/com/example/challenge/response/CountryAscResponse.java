@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CountryDescResponse {
+public class CountryAscResponse {
 
     private String country;
 
