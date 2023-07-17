@@ -1,9 +1,6 @@
 package com.example.challenge.java;
 
-import com.example.challenge.entity.People;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 import java.io.*;
 import java.nio.file.Files;

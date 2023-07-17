@@ -2,6 +2,7 @@ package com.example.challenge.controller;
 
 import com.example.challenge.entity.People;
 import com.example.challenge.service.PeopleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +24,17 @@ public class ExController {
         Page<People> pagePeople;
         Pageable pageable = PageRequest.of(page - 1, 5);
         pagePeople = peopleService.getAllPeople(pageable);
-        return ResponseEntity.ok(pagePeople.getContent());
+        return ResponseEntity.ok(pagePeople);
     }
 
     public ResponseEntity<?> getWordAppearSlogan() {
 
+        return null;
+    }
+
+    @GetMapping("/2")
+    public ResponseEntity<?> mergeJson() {
+        peopleService.mergeJson();
         return null;
     }
 }

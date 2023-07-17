@@ -9,10 +9,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class PeopleServiceImpl implements PeopleService {
+
+    private final String inputPath = "jsonData";
+    private final String outputFile = "data.json";
+    private final String seperator = "/";
 
     @Autowired
     private PeopleRepository peopleRepository;
@@ -26,4 +38,79 @@ public class PeopleServiceImpl implements PeopleService {
 
         return null;
     }
+
+    @Override
+    public Boolean mergeJson() {
+        var fileNameList = getAllJsonFileNameInFolderData();
+        var summary = new ArrayList<String>();
+        for (int i = 0; i < fileNameList.size(); i++) {
+            var lines = readJsonFile(fileNameList.get(i));
+            if (i == 0) {
+                var newLine = lines.get(lines.size() - 1).replace("]", ",");
+                lines.set(lines.size() - 1, newLine);
+            } else if (i == fileNameList.size() - 1) {
+                var newLine = lines.get(0).replace("[", "");
+                lines.set(0, newLine);
+            } else {
+                var newLine1 = lines.get(0).replace("[", "");
+                var newLine2 = lines.get(lines.size() - 1).replace("]", ",");
+                lines.set(0, newLine1);
+                lines.set(lines.size() - 1, newLine2);
+            }
+            summary.addAll(lines);
+        }
+        try {
+            writeToFile(summary, outputFile);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ex2 start
+
+    private void writeToFile(List<String> contents, String path) throws IOException {
+        File f = new File(path);
+        if(f.exists() && !f.isDirectory()) {
+            f.delete();
+        }
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(outputFile);
+            for (int i = 0; i < contents.size(); i++) {
+                outputStream.write((contents.get(i) + "\n").getBytes());
+            }
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+        }
+    }
+
+    private List<String> getAllJsonFileNameInFolderData() {
+        File folder = new File(inputPath);
+        File[] listOfFiles = folder.listFiles();
+        List<String> fileNames = new ArrayList<>();
+        for (File file: listOfFiles) {
+            if (file.getName().endsWith(".json")) {
+                fileNames.add(file.getName());
+            }
+        }
+        Collections.sort(fileNames);
+        return fileNames;
+    }
+
+    public List<String> readJsonFile(String name) {
+        String file =  inputPath + seperator + name;
+        Path path = Paths.get(file);
+        try {
+            List<String> lines = Files.readAllLines(path);
+            return lines;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    // ex2 end
 }
