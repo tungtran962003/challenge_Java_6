@@ -1,6 +1,7 @@
 package com.example.challenge.controller;
 
 import com.example.challenge.entity.People;
+import com.example.challenge.response.CountryDescResponse;
 import com.example.challenge.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ex")
@@ -29,5 +32,11 @@ public class ExController {
     public ResponseEntity<?> getWordAppearSlogan() {
 
         return null;
+    }
+
+    @GetMapping("/5")
+    public ResponseEntity<?> getAllCountryDesc() {
+        List<CountryDescResponse> list = peopleService.getAllCountryDesc();
+        return ResponseEntity.ok(list);
     }
 }

@@ -12,6 +12,4 @@ import lombok.Setter;
 public class WordAppearSlogan {
 
     private String word;
-
-    private Integer number;
 }
