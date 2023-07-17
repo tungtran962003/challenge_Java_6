@@ -31,7 +31,7 @@ public class People {
     private String email;
 
     @Column(name = "gender")
-    private Boolean gender;
+    private String gender;
 
     @Column(name = "ipAddress")
     private String ip_address;
