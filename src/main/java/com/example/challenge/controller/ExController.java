@@ -1,6 +1,7 @@
 package com.example.challenge.controller;
 
 import com.example.challenge.entity.People;
+import com.example.challenge.response.CountryAscResponse;
 import com.example.challenge.response.CommonResponse;
 import com.example.challenge.service.PeopleService;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ex")
@@ -34,6 +37,11 @@ public class ExController {
         return null;
     }
 
+    @GetMapping("/5")
+    public ResponseEntity<?> getAllCountryDesc() {
+        List<CountryAscResponse> list = peopleService.getAllCountryAsc();
+        return ResponseEntity.ok(list);
+    }
     @GetMapping("/2")
     public ResponseEntity<?> mergeJson() {
         var result = peopleService.mergeJson();
