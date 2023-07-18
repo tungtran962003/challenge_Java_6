@@ -30,6 +30,7 @@ VALUES ('64fefe23-5112-4694-8cbb-6e9d74f66eae','Lady', 'Fright', 'mfright0@hhs.g
 INSERT INTO People (id,first_name, last_name, email, gender, ip_address, avatar, country, job, company, salary, username, password, slogan)
 VALUES ('223c81a2-1822-4449-9f3b-b540bcd1f54d','Haha', 'Fright', 'mfright0@hhs.gov', 'Female', '41.123.237.28', 'https://robohash.org/architectoetaut.png?size=50x50&set=set1','Germany', 'Sales Associate', 'Youspan', '$36.8M','mfright0','$2a$04$l6vlllGBDHlM6U3xbnduru2RDuK3ejR8NI4Yab7T1Iu11Ei527Aoi', 'eeeeeeeeeeeeeeeee');
 
+DROP Table People
 
 SELECT * FROM People 
 

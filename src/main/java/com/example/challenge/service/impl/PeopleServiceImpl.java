@@ -179,4 +179,9 @@ public class PeopleServiceImpl implements PeopleService {
 
     // ex3 end
 
+    @Override
+    public Page<People> getDataOrderBySalary(Pageable pageable) {
+        return peopleRepository.findAllByOrderBySalaryAsc(pageable);
+    }
+
 }

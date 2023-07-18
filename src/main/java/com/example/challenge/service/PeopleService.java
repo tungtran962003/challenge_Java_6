@@ -17,4 +17,6 @@ public interface PeopleService {
     Boolean mergeJson();
 
     String insertJsonDataToDb();
+
+    Page<People> getDataOrderBySalary(Pageable pageable);
 }

@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,7 @@ public class ExController {
         Page<People> pagePeople;
         Pageable pageable = PageRequest.of(page - 1, 5);
         pagePeople = peopleService.getAllPeople(pageable);
-        return ResponseEntity.ok(pagePeople);
+        return ResponseEntity.ok(pagePeople.getContent());
     }
 
     public ResponseEntity<?> getWordAppearSlogan() {
@@ -54,11 +53,19 @@ public class ExController {
                 .message(msg).build());
     }
 
-    @PostMapping("/3")
+    @GetMapping("/3")
     public ResponseEntity<?> insertJsonToDB() {
         String msg = peopleService.insertJsonDataToDb();
         return ResponseEntity.ok(CommonResponse.builder()
                 .data(msg)
                 .message("Success").build());
+    }
+
+    @GetMapping("/6")
+    public ResponseEntity<?> getDataOrderBySalary(@RequestParam(defaultValue = "1") int page) {
+        Page<People> pagePeople;
+        Pageable pageable = PageRequest.of(page - 1, 5);
+        pagePeople = peopleService.getDataOrderBySalary(pageable);
+        return ResponseEntity.ok(pagePeople.getContent());
     }
 }

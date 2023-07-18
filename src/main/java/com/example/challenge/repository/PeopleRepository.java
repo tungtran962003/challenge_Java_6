@@ -2,6 +2,8 @@ package com.example.challenge.repository;
 
 import com.example.challenge.entity.People;
 import com.example.challenge.rto.CountryAsc;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +23,6 @@ public interface PeopleRepository extends JpaRepository<People, UUID> {
             " GROUP BY country " +
             " ORDER BY COUNT(country) ASC ")
     List<CountryAsc> getCountryAsc();
+
+    Page<People> findAllByOrderBySalaryAsc(Pageable pageable);
 }
