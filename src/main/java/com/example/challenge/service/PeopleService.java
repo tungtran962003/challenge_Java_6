@@ -10,4 +10,6 @@ public interface PeopleService {
     Page<People> getAllPeople(Pageable pageable);
 
     Boolean mergeJson();
+
+    String insertJsonDataToDb();
 }
