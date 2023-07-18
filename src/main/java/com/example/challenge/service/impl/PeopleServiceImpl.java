@@ -3,7 +3,10 @@ package com.example.challenge.service.impl;
 import com.example.challenge.entity.People;
 import com.example.challenge.repository.PeopleRepository;
 import com.example.challenge.response.WordAppearSlogan;
+import com.example.challenge.rto.JsonToPeople;
 import com.example.challenge.service.PeopleService;
+
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +47,7 @@ public class PeopleServiceImpl implements PeopleService {
         var fileNameList = getAllJsonFileNameInFolderData();
         var summary = new ArrayList<String>();
         for (int i = 0; i < fileNameList.size(); i++) {
-            var lines = readJsonFile(fileNameList.get(i));
+            var lines = readJsonFile(fileNameList.get(i), true);
             if (i == 0) {
                 var newLine = lines.get(lines.size() - 1).replace("]", ",");
                 lines.set(lines.size() - 1, newLine);
@@ -101,8 +104,9 @@ public class PeopleServiceImpl implements PeopleService {
         return fileNames;
     }
 
-    public List<String> readJsonFile(String name) {
-        String file =  inputPath + seperator + name;
+    public List<String> readJsonFile(String name, boolean hasPath) {
+        String folderPath = hasPath ? inputPath + seperator : "";
+        String file =  folderPath + name;
         Path path = Paths.get(file);
         try {
             List<String> lines = Files.readAllLines(path);
@@ -111,6 +115,41 @@ public class PeopleServiceImpl implements PeopleService {
             return null;
         }
     }
-
     // ex2 end
+
+    // ex3 start
+    @Override
+    public String insertJsonDataToDb() {
+        File f = new File(outputFile);
+        if (f.exists() && f.isFile()) {
+            var msg = addJsonToDB();
+            return msg;
+        }
+        return null;
+    }
+
+    private String addJsonToDB() {
+        var lines = readJsonFile(outputFile, false);
+        var jsonData = String.join("\n", lines);
+        int count  = 0;
+        int total = 0;
+
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            total = jsonArray.length();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                var p = JsonToPeople.toPeople(jsonArray.get(i));
+                if (p != null) {
+                    peopleRepository.save(p);
+                    count++;
+                }
+            }
+            return "Insert " + count + "/" + jsonArray.length() + " records!";
+        } catch (Exception e) {
+            return "Insert " + count + "/" + total + " records!";
+        }
+    }
+
+    // ex3 end
+
 }
