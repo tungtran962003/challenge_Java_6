@@ -12,9 +12,9 @@ import java.util.UUID;
 @Repository
 public interface PeopleRepository extends JpaRepository<People, UUID> {
 
-//    @Query(value = "SELECT slogan as slogan," +
-//            "  FROM People ")
-//    List<People> getAllSlogan();
+    @Query(value = "SELECT slogan as slogan " +
+            "FROM People")
+    List<People> getAllSlogan();
 
     @Query(value = "SELECT country as country," +
             " COUNT(country) as number FROM People " +

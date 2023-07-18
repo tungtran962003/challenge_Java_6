@@ -35,7 +35,9 @@ SELECT * FROM People
 
 SELECT country, COUNT(country) as 'number' from people
 GROUP BY country
-ORDER BY COUNT(country) DESC
+ORDER BY COUNT(country) ASC
+
+SELECT slogan FROM People
 
 SELECT slogan from people
 WHERE LENGTH(slogan) - LENGTH(REPLACE(slogan, ' ', '')) > 2
